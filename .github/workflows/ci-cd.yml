@@ -21,9 +21,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Image
+      - name: Build Image (no push)
         uses: docker/build-push-action@v5
         with:
+          context: .
           push: false
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/devops-quiz-ai:latest
@@ -41,6 +42,7 @@ jobs:
         if: github.event_name == 'push'
         uses: docker/build-push-action@v5
         with:
+          context: .
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/devops-quiz-ai:latest
